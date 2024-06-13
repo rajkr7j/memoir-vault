@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import 'package:memoir_vault/widgets/date_selector.dart';
 import 'package:memoir_vault/widgets/textfields/body_textfield.dart';
@@ -17,8 +16,13 @@ class NewDiary extends StatefulWidget {
 class _NewDiaryState extends State<NewDiary> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
-  final DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
   bool button = false;
+
+  //set date
+  void setDate(DateTime pickedDate) {
+    _selectedDate = pickedDate;
+  }
 
   //add page to diary
   Future addPage() async {
@@ -114,7 +118,9 @@ class _NewDiaryState extends State<NewDiary> {
             child: Column(
               children: [
                 //Date and Date selector
-                DateSelector(selectedDate: _selectedDate),
+                DateSelector(
+                  setDate: setDate,
+                ),
 
                 const SizedBox(height: 5),
 

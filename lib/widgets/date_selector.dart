@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:memoir_vault/models/months.dart';
 
 class DateSelector extends StatefulWidget {
-  DateSelector({
+  const DateSelector({
     super.key,
-    required this.selectedDate,
+    required this.setDate,
   });
-  DateTime? selectedDate;
+  final void Function(DateTime) setDate;
   @override
   State<DateSelector> createState() => _DateSelectorState();
 }
 
 class _DateSelectorState extends State<DateSelector> {
+  DateTime selectedDate = DateTime.now();
+
+  //date picker
   void _datePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(1992);
@@ -30,19 +33,20 @@ class _DateSelectorState extends State<DateSelector> {
               Container(
                 height: 200,
                 child: CupertinoDatePicker(
-                  initialDateTime: widget.selectedDate ?? now,
+                  initialDateTime: selectedDate,
                   mode: CupertinoDatePickerMode.date,
                   minimumDate: firstDate,
                   maximumDate: now,
                   onDateTimeChanged: (DateTime newDateTime) {
+                    widget.setDate(newDateTime);
                     setState(() {
-                      widget.selectedDate = newDateTime;
+                      selectedDate = newDateTime;
                     });
                   },
                 ),
               ),
               CupertinoButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -59,12 +63,13 @@ class _DateSelectorState extends State<DateSelector> {
     return GestureDetector(
       onTap: _datePicker,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 10),
 
           //Date
           Text(
-            widget.selectedDate!.day.toString(),
+            selectedDate.day.toString(),
             style: const TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.w600,
@@ -74,7 +79,7 @@ class _DateSelectorState extends State<DateSelector> {
           const SizedBox(width: 10),
           //month
           Text(
-            getMonth().getMonthName(widget.selectedDate!.month),
+            GetMonth().getMonthName(selectedDate.month),
             style: const TextStyle(
               fontSize: 20,
               color: Color.fromARGB(255, 68, 68, 68),
@@ -85,7 +90,7 @@ class _DateSelectorState extends State<DateSelector> {
 
           //year
           Text(
-            widget.selectedDate!.year.toString(),
+            selectedDate.year.toString(),
             style: const TextStyle(
               fontSize: 20,
               color: Color.fromARGB(255, 68, 68, 68),

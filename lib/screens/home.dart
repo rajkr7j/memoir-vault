@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:memoir_vault/widgets/floating_buttons.dart';
-import 'package:memoir_vault/widgets/diary_list.dart';
+import 'package:memoir_vault/widgets/diary_list/diary_list.dart';
 import 'package:memoir_vault/widgets/my_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               top: height / 3.53,
               bottom: 0,
             ),
-            child: DiaryList(),
+            child: const DiaryList(),
           ),
 
           //floating button - Date, Add, Refresh
