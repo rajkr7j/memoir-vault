@@ -11,8 +11,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -48,7 +46,6 @@ class HomeScreen extends StatelessWidget {
           ),
 
           //diary list
-
           Container(
             padding: EdgeInsets.only(
               right: width / 33.33,

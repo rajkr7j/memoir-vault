@@ -6,15 +6,26 @@ import 'package:memoir_vault/models/months.dart';
 class DateSelector extends StatefulWidget {
   const DateSelector({
     super.key,
-    required this.setDate,
+    required this.onChange,
+    this.initialDate,
+    this.isEdit = true,
   });
-  final void Function(DateTime) setDate;
+  final void Function(DateTime) onChange;
+  final DateTime? initialDate;
+  final bool isEdit;
+
   @override
   State<DateSelector> createState() => _DateSelectorState();
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.initialDate ?? DateTime.now();
+  }
 
   //date picker
   void _datePicker() async {
@@ -38,7 +49,7 @@ class _DateSelectorState extends State<DateSelector> {
                   minimumDate: firstDate,
                   maximumDate: now,
                   onDateTimeChanged: (DateTime newDateTime) {
-                    widget.setDate(newDateTime);
+                    widget.onChange(newDateTime);
                     setState(() {
                       selectedDate = newDateTime;
                     });
@@ -46,7 +57,13 @@ class _DateSelectorState extends State<DateSelector> {
                 ),
               ),
               CupertinoButton(
-                child: const Text('OK'),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -60,8 +77,8 @@ class _DateSelectorState extends State<DateSelector> {
 
   @override
   Widget build(context) {
-    return GestureDetector(
-      onTap: _datePicker,
+    return InkWell(
+      onTap: widget.isEdit ? _datePicker : () {},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

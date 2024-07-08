@@ -12,10 +12,13 @@ Future<void> deletePage(String docId, BuildContext context) async {
         .collection('pages')
         .doc(docId)
         .delete();
-        
-        ScaffoldMessenger.of(context).clearSnackBars();
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Page Deleted Successfully')));
   } catch (error) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(error.toString())));
   }
 }

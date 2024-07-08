@@ -1,5 +1,6 @@
-import 'package:memoir_vault/screens/signup.dart';
 import 'package:flutter/material.dart';
+
+import 'package:memoir_vault/screens/signup.dart';
 import 'package:memoir_vault/screens/login.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void _toggleAuth() {
     setState(() {
       isLogin = !isLogin;
-      print(isLogin);
     });
   }
 

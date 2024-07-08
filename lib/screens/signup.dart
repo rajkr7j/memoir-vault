@@ -1,18 +1,13 @@
 import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:memoir_vault/widgets/textfields/email_textfield.dart';
 import 'package:memoir_vault/widgets/oAuth_card.dart';
+import 'package:memoir_vault/controller/signup_button.dart';
+import 'package:memoir_vault/widgets/textfields/email_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/password_textfield.dart';
-
-final _firebase = FirebaseAuth.instance;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
@@ -44,85 +39,10 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
-  //signing in new user
-  Future _signIn() async {
-    try {
-      //loading circle
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 221, 62, 62),
-              backgroundColor: Color.fromARGB(255, 248, 171, 171),
-            ),
-          );
-        },
-      );
-
-      //attempt to sign up
-      if (passwordConfirmed()) {
-        //create user
-        final userCredential = await _firebase.createUserWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
-
-        //pop the loading circle
-        Navigator.of(context).pop();
-
-        //add user details
-        await addUserDetails(
-            _usernameController.text, _emailController.text, userCredential);
-      }
-    } on FirebaseAuthException catch (error) {
-      //pop the loading circle
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error.message!),
-        ),
-      );
-    }
-  }
-
-  //funtion to add user details in firestore
-  Future addUserDetails(
-      String username, String email, UserCredential userCredential) async {
-    // await FirebaseFirestore.instance.collection('users').add({
-    // 'username': username,
-    // 'email': email,
-    // });
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userCredential.user!.uid)
-        .set({
-      'username': username,
-      'email': email,
-    });
-  }
-
-  // checking both password are same or not
-  bool passwordConfirmed() {
-    if (_passwordController.text == _confirmPasswordController.text) {
-      return true;
-    }
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Password did not macth'),
-      ),
-    );
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
 
     return SingleChildScrollView(
       child: Center(
@@ -199,7 +119,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            onTap: _signIn,
+                            onTap: () {
+                              signIn(
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                  confirmPassword:
+                                      _confirmPasswordController.text.trim(),
+                                  username: _usernameController.text.trim(),
+                                  context: context);
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               // width: width / 1.54617,

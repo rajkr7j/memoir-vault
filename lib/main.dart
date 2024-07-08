@@ -25,6 +25,17 @@ class MyApp extends StatelessWidget {
           .copyWith(textScaler: const TextScaler.linear(.8)),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          snackBarTheme: SnackBarThemeData(
+            backgroundColor: const Color.fromARGB(79, 0, 0, 0),
+            contentTextStyle: const TextStyle(color: Colors.white),
+            shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(10), // Customize the shape here
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        ),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (ctx, snapshot) {

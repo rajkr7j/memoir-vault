@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:memoir_vault/controller/add_page.dart';
 
 import 'package:memoir_vault/widgets/date_selector.dart';
 import 'package:memoir_vault/widgets/textfields/body_textfield.dart';
@@ -18,56 +17,11 @@ class _NewDiaryState extends State<NewDiary> {
   final TextEditingController _bodyController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   bool button = false;
-
-  //set date
-  void setDate(DateTime pickedDate) {
-    _selectedDate = pickedDate;
-  }
-
-  //add page to diary
-  Future addPage() async {
-    try {
-      final user = FirebaseAuth.instance.currentUser!;
-
-      FirebaseFirestore.instance
-          .collection('Diary')
-          .doc(user.uid)
-          .collection('pages')
-          .add({
-        'title': _titleController.text,
-        'date': _selectedDate,
-        'body': _bodyController.text,
-      });
-    } catch (error) {
-      dialog(
-          text:
-              "Oops, somthing went wrong. Please try again later.${error.toString()}",
-          title: "ERROR");
-    }
-  }
-
-  //TO show Error or dialog
-  void dialog({required String text, required String title}) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-              title: Text(
-                title,
-                // style: TextStyle(color: Colors.white),
-              ),
-              content: Text(
-                text,
-                // style: TextStyle(color: Colors.white),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                  },
-                  child: const Text("Okay"),
-                )
-              ],
-            ));
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _bodyController.dispose();
   }
 
   @override
@@ -83,7 +37,13 @@ class _NewDiaryState extends State<NewDiary> {
         elevation: 0,
         actions: [
           TextButton.icon(
-            onPressed: addPage,
+            onPressed: () {
+              addPage(
+                  context: context,
+                  title: _titleController.text.trim(),
+                  date: _selectedDate,
+                  body: _bodyController.text.trim());
+            },
             icon: const Icon(Icons.save_outlined),
             label: const Text('SAVE'),
             style: ButtonStyle(
@@ -119,7 +79,9 @@ class _NewDiaryState extends State<NewDiary> {
               children: [
                 //Date and Date selector
                 DateSelector(
-                  setDate: setDate,
+                  onChange: (pickedDate) {
+                    _selectedDate = pickedDate;
+                  },
                 ),
 
                 const SizedBox(height: 5),

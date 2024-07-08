@@ -1,17 +1,12 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:memoir_vault/controller/login_button.dart';
 
 import 'package:memoir_vault/widgets/textfields/email_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/password_textfield.dart';
 import 'package:memoir_vault/widgets/oAuth_card.dart';
 import 'package:memoir_vault/screens/forget_password.dart';
-
-final _firebase = FirebaseAuth.instance;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -41,41 +36,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future _logIn() async {
-    try {
-      //loading circle
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 221, 62, 62),
-              backgroundColor: Color.fromARGB(255, 248, 171, 171),
-            ),
-          );
-        },
-      );
-
-      //attempt to sign in
-      await _firebase.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      //pop the loading circle
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (error) {
-      //pop the loading circle
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error.message!),
-        ),
-      );
-    }
   }
 
   @override
@@ -164,7 +124,12 @@ class _LoginPageState extends State<LoginPage> {
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            onTap: _logIn,
+                            onTap: () {
+                              logIn(
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                  context: context);
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               // width: width / 1.54617,

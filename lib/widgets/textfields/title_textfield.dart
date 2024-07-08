@@ -5,11 +5,14 @@ class TitleTextField extends StatelessWidget {
   const TitleTextField({
     super.key,
     required this.titleController,
+    this.isEdit = true,
   });
   final TextEditingController titleController;
+  final bool isEdit;
   @override
   Widget build(context) {
     return TextField(
+      enabled: isEdit,
       maxLines: 1,
       // expands: true,
       keyboardType: TextInputType.multiline,
@@ -19,10 +22,11 @@ class TitleTextField extends StatelessWidget {
       style: const TextStyle(
         color: Color.fromARGB(255, 63, 63, 63),
         fontSize: 25,
+        fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color.fromARGB(0, 225, 68, 68),
+        fillColor: const Color.fromARGB(0, 225, 68, 68),
 
         // field shape
         enabledBorder: OutlineInputBorder(
@@ -39,7 +43,7 @@ class TitleTextField extends StatelessWidget {
         ),
         hintText: 'title',
         hintStyle: GoogleFonts.encodeSansExpanded(
-          color: Color.fromARGB(186, 115, 115, 115),
+          color: const Color.fromARGB(186, 115, 115, 115),
           fontSize: 25,
         ),
         contentPadding:
