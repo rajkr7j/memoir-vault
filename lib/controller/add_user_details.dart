@@ -9,5 +9,6 @@ Future addUserDetails(
       .set({
     'username': username,
     'email': email,
+    'userImage': '',
   });
 }

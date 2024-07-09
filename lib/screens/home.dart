@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:memoir_vault/provider/pages_provider.dart';
 
+import 'package:memoir_vault/provider/pages_provider.dart';
 import 'package:memoir_vault/widgets/floating_buttons.dart';
 import 'package:memoir_vault/widgets/diary_list/diary_list.dart';
 import 'package:memoir_vault/widgets/my_drawer.dart';
@@ -86,8 +86,12 @@ class HomeScreen extends ConsumerWidget {
               onChanged: (value) {
                 ref.read(diaryPagesProvider.notifier).runFilter(value);
               },
+              cursorColor: Colors.red,
+              cursorErrorColor: Colors.red,
               decoration: InputDecoration(
-                labelText: 'Search Title',
+                hintText: 'Search Title',
+
+                // labelText: 'Search Title',
                 suffixIcon: const Icon(
                   Icons.search,
                 ),

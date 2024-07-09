@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:memoir_vault/screens/profile.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -44,7 +45,10 @@ class MyDrawer extends StatelessWidget {
             child: ListTile(
               title: const Text('P R O F I L E'),
               leading: const Icon(Icons.person_2_outlined),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => ProfilePage()));
+              },
             ),
           ),
 

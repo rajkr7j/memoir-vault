@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class GetUserName extends StatelessWidget {
-  const GetUserName({
+class GetEmail extends StatelessWidget {
+  const GetEmail({
     super.key,
     this.textStyle = const TextStyle(),
   });
@@ -20,7 +20,7 @@ class GetUserName extends StatelessWidget {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
             return Text(
-              data['username'],
+              data['email'],
               style: textStyle,
             );
           }
