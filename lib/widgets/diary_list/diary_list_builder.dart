@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:memoir_vault/models/months.dart';
-import 'package:memoir_vault/models/diary_page.dart';
 import 'package:memoir_vault/controller/delete_page.dart';
+import 'package:memoir_vault/provider/pages_provider.dart';
 import 'package:memoir_vault/screens/edit_page.dart';
 
-class DiaryListBuilder extends StatelessWidget {
-  const DiaryListBuilder({super.key, required this.pages});
-  final List<DiaryPage> pages;
+class DiaryListBuilder extends ConsumerWidget {
+  const DiaryListBuilder({
+    super.key,
+  });
 
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
+    final pages = ref.watch(diaryPagesProvider);
     return ListView.builder(
       padding: const EdgeInsets.only(top: 0),
       itemCount: pages.length,

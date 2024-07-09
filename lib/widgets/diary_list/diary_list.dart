@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:memoir_vault/models/diary_page.dart';
+import 'package:memoir_vault/provider/pages_provider.dart';
 import 'package:memoir_vault/widgets/diary_list/diary_list_builder.dart';
 
-class DiaryList extends StatelessWidget {
+class DiaryList extends ConsumerWidget {
   const DiaryList({super.key});
 
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
     final user = FirebaseAuth.instance.currentUser!;
     return StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -53,9 +55,13 @@ class DiaryList extends StatelessWidget {
 
             pages.add(page);
           }
+          //initialize diay provider by adding all loadedpages to the diary
+          Future(() {
+            ref.read(diaryPagesProvider.notifier).initiliazeDiary(pages);
+          });
 
           //returning the Diary List builder widget to be displayed
-          return DiaryListBuilder(pages: pages);
+          return const DiaryListBuilder();
         }));
   }
 }
