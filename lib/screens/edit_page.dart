@@ -79,7 +79,7 @@ class _EditPageState extends State<EditPage> {
           if (!isEdit)
             TextButton.icon(
               onPressed: toggleIsEdit,
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.edit, color: Colors.black),
               label: const Text('EDIT'),
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.all(

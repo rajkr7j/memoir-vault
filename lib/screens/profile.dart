@@ -82,6 +82,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 //change profile image
 
                 SizedBox(height: height / 25),
+
+                //Edit Image button
                 InkWell(
                   onTap: () {
                     UserImagePicker(
@@ -110,6 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     )),
                   ),
                 ),
+
+                //Save Image Button conditonal
                 SizedBox(height: height / 3),
                 if (isEdit)
                   InkWell(
@@ -134,26 +138,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Text(
                         isSaving ? 'Saving......' : 'Save Changes',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
                       )),
                     ),
                   ),
-                //edit profile optional will do it later
-                // SizedBox(height: height / 25),
-                //edit profile
-                // Container(
-                //   padding:
-                //       const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(18),
-                //     color: const Color.fromARGB(213, 255, 208, 208),
-                //   ),
-                //   child: const Center(
-                //       child: Text(
-                //     'Edit Profile',
-                //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                //   )),
-                // ),
               ],
             ),
           ],

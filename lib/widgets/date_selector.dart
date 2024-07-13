@@ -90,6 +90,7 @@ class _DateSelectorState extends State<DateSelector> {
             style: const TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
           ),
 
@@ -99,7 +100,7 @@ class _DateSelectorState extends State<DateSelector> {
             GetMonth().getMonthName(selectedDate.month),
             style: const TextStyle(
               fontSize: 20,
-              color: Color.fromARGB(255, 68, 68, 68),
+              color: Colors.black,
             ),
           ),
 
@@ -110,7 +111,7 @@ class _DateSelectorState extends State<DateSelector> {
             selectedDate.year.toString(),
             style: const TextStyle(
               fontSize: 20,
-              color: Color.fromARGB(255, 68, 68, 68),
+              color: Colors.black,
             ),
           ),
 

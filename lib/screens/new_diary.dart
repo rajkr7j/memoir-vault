@@ -35,6 +35,9 @@ class _NewDiaryState extends State<NewDiary> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        scrolledUnderElevation: 0,
+
+        //SAVE BUTTON
         actions: [
           TextButton.icon(
             onPressed: () {
@@ -44,11 +47,18 @@ class _NewDiaryState extends State<NewDiary> {
                   date: _selectedDate,
                   body: _bodyController.text.trim());
             },
-            icon: const Icon(Icons.save_outlined),
-            label: const Text('SAVE'),
+            icon: const Icon(
+              Icons.save_outlined,
+              color: Colors.black,
+            ),
+            label: const Text(
+              'SAVE',
+              style: TextStyle(color: Colors.black),
+            ),
             style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(
-                  const Color.fromARGB(255, 255, 125, 116)),
+                const Color.fromARGB(255, 255, 125, 116),
+              ),
               foregroundColor: MaterialStateProperty.all(Colors.black),
               iconSize: MaterialStateProperty.all(30),
             ),
@@ -62,6 +72,8 @@ class _NewDiaryState extends State<NewDiary> {
             padding: const EdgeInsets.only(top: 0),
             child: Image.asset(
               'assets/home/home.jpg',
+              // 'assets/home/home1.jpg',
+
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,

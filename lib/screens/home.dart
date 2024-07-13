@@ -94,6 +94,7 @@ class HomeScreen extends ConsumerWidget {
                 // labelText: 'Search Title',
                 suffixIcon: const Icon(
                   Icons.search,
+                  color: Color.fromARGB(255, 73, 73, 73),
                 ),
                 filled: true,
                 fillColor: const Color.fromARGB(132, 255, 201, 201),

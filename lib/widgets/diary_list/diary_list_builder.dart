@@ -6,6 +6,7 @@ import 'package:memoir_vault/models/months.dart';
 import 'package:memoir_vault/controller/delete_page.dart';
 import 'package:memoir_vault/provider/pages_provider.dart';
 import 'package:memoir_vault/screens/edit_page.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 class DiaryListBuilder extends ConsumerWidget {
   const DiaryListBuilder({
@@ -15,6 +16,7 @@ class DiaryListBuilder extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final pages = ref.watch(diaryPagesProvider);
+    final theme = ref.watch(themeProvider);
     return pages.isEmpty
         ? const Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +79,8 @@ class DiaryListBuilder extends ConsumerWidget {
                     );
                   },
                   child: Card(
-                    color: const Color.fromARGB(170, 249, 169, 169),
+                    // color: const Color.fromARGB(170, 249, 169, 169),
+                    color: theme.customColors.cardColor,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 30,

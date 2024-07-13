@@ -143,8 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Text(
                                   'Login',
                                   style: GoogleFonts.encodeSansExpanded(
-                                    color: const Color.fromARGB(
-                                        255, 255, 255, 255),
+                                    color: const Color.fromARGB(255, 255, 255,
+                                        255), //same as logintoyouaccount
                                     fontSize: 20,
                                   ),
                                 ),
@@ -195,7 +195,8 @@ class _LoginPageState extends State<LoginPage> {
                               'Or log in with?',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.encodeSansExpanded(
-                                color: const Color.fromARGB(255, 255, 255, 255),
+                                color: const Color.fromARGB(255, 255, 255,
+                                    255), //same as logintoyouaccount
                                 fontSize: 15,
                               ),
                             ),
@@ -242,8 +243,8 @@ class _LoginPageState extends State<LoginPage> {
                                   'Don\'t have an account?',
                                   textAlign: TextAlign.end,
                                   style: GoogleFonts.encodeSansExpanded(
-                                    color: const Color.fromARGB(
-                                        255, 255, 255, 255),
+                                    color: const Color.fromARGB(255, 255, 255,
+                                        255), //same as logintoyouaccount
                                     fontSize: 15,
                                   ),
                                 ),

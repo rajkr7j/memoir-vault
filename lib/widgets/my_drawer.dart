@@ -31,7 +31,10 @@ class MyDrawer extends StatelessWidget {
               top: 25,
             ),
             child: ListTile(
-              title: const Text('H O M E'),
+              title: const Text(
+                'H O M E',
+                style: TextStyle(color: Colors.black),
+              ),
               leading: const Icon(Icons.home_outlined),
               onTap: () => Navigator.pop(context),
             ),
@@ -43,11 +46,14 @@ class MyDrawer extends StatelessWidget {
               left: 25,
             ),
             child: ListTile(
-              title: const Text('P R O F I L E'),
+              title: const Text(
+                'P R O F I L E',
+                style: TextStyle(color: Colors.black),
+              ),
               leading: const Icon(Icons.person_2_outlined),
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => ProfilePage()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => const ProfilePage()));
               },
             ),
           ),
@@ -59,7 +65,10 @@ class MyDrawer extends StatelessWidget {
               top: 0,
             ),
             child: ListTile(
-              title: const Text('T H E M E'),
+              title: const Text(
+                'T H E M E',
+                style: TextStyle(color: Colors.black),
+              ),
               leading: const Icon(Icons.color_lens_outlined),
               onTap: () {},
             ),
@@ -72,7 +81,10 @@ class MyDrawer extends StatelessWidget {
               top: 0,
             ),
             child: ListTile(
-              title: const Text('S E T T I N G S'),
+              title: const Text(
+                'S E T T I N G S',
+                style: TextStyle(color: Colors.black),
+              ),
               leading: const Icon(Icons.settings_outlined),
               onTap: () {},
             ),
@@ -85,7 +97,10 @@ class MyDrawer extends StatelessWidget {
               top: 0,
             ),
             child: ListTile(
-              title: const Text('L O G O U T'),
+              title: const Text(
+                'L O G O U T',
+                style: TextStyle(color: Colors.black),
+              ),
               leading: const Icon(Icons.logout),
               onTap: () {
                 FirebaseAuth.instance.signOut();
