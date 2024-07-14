@@ -1,19 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:memoir_vault/controller/get_email.dart';
 import 'package:memoir_vault/controller/get_user_image.dart';
 import 'package:memoir_vault/controller/get_user_name.dart';
 import 'package:memoir_vault/controller/save_user_image.dart';
 import 'package:memoir_vault/controller/user_image_picker.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   File? selectedImage;
   bool isEdit = false;
   bool isSaving = false;
@@ -32,9 +35,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(context) {
     double height = MediaQuery.of(context).size.height;
+    final theme = ref.watch(themeProvider);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(210, 222, 173, 169),
+      backgroundColor: theme.customColors.profilePageBg,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -56,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 //user profile image
                 CircleAvatar(
                   radius: height / 10,
-                  backgroundColor: const Color.fromARGB(154, 255, 208, 208),
+                  backgroundColor: theme.customColors.profileImageBg,
                   foregroundImage: selectedImage != null
                       ? FileImage(selectedImage!)
                       : Image.asset('assets/profile/user.webp').image,
@@ -67,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   textStyle: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade800,
+                    color: theme.customColors.profileText,
                   ),
                 ),
                 //email
@@ -75,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   textStyle: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade800,
+                    color: theme.customColors.profileText,
                   ),
                 ),
 
@@ -102,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
-                      color: const Color.fromARGB(213, 255, 208, 208),
+                      color: theme.customColors.editImageButton,
                     ),
                     child: const Center(
                         child: Text(
@@ -132,15 +136,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           horizontal: 50, vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(18),
-                        color: const Color.fromARGB(212, 104, 255, 124),
+                        color: theme.customColors.saveChangesButtonBg,
                       ),
                       child: Center(
                           child: Text(
                         isSaving ? 'Saving......' : 'Save Changes',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.black,
+                          color: theme.customColors.saveChangesButtonText,
                         ),
                       )),
                     ),

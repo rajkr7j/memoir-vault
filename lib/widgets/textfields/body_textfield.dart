@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class BodyTextField extends StatelessWidget {
+class BodyTextField extends ConsumerWidget {
   const BodyTextField({
     super.key,
     required this.bodyController,
@@ -12,16 +14,17 @@ class BodyTextField extends StatelessWidget {
   final bool isEdit;
 
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
+    final theme = ref.watch(themeProvider);
     return TextField(
       enabled: isEdit,
       maxLines: null,
       keyboardType: TextInputType.multiline,
       controller: bodyController,
       textAlign: TextAlign.justify,
-      cursorColor: const Color.fromARGB(255, 221, 62, 62),
-      style: const TextStyle(
-        color: Color.fromARGB(255, 58, 58, 58),
+      cursorColor: theme.customColors.cursor,
+      style: TextStyle(
+        color: theme.customColors.bodyText,
         fontSize: 20,
       ),
       decoration: InputDecoration(
@@ -43,7 +46,7 @@ class BodyTextField extends StatelessWidget {
         ),
         hintText: 'write more here.....',
         hintStyle: GoogleFonts.encodeSansExpanded(
-          color: const Color.fromARGB(186, 54, 54, 54),
+          color: theme.customColors.bodyHintText,
           fontSize: 20,
         ),
       ),

@@ -77,6 +77,8 @@ flutter:
     - assets/home/
     - assets/drawer/
     - assets/profile/
+    - assets/theme/greenTheme/
+    - assets/theme/purple/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

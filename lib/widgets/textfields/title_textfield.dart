@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class TitleTextField extends StatelessWidget {
+class TitleTextField extends ConsumerWidget {
   const TitleTextField({
     super.key,
     required this.titleController,
@@ -10,7 +12,8 @@ class TitleTextField extends StatelessWidget {
   final TextEditingController titleController;
   final bool isEdit;
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
+    final theme = ref.watch(themeProvider);
     return TextField(
       enabled: isEdit,
       maxLines: 1,
@@ -18,9 +21,9 @@ class TitleTextField extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       controller: titleController,
 
-      cursorColor: const Color.fromARGB(255, 221, 62, 62),
-      style: const TextStyle(
-        color: Color.fromARGB(255, 63, 63, 63),
+      cursorColor: theme.customColors.cursor,
+      style: TextStyle(
+        color: theme.customColors.titleText,
         fontSize: 25,
         fontWeight: FontWeight.w500,
       ),
@@ -30,20 +33,20 @@ class TitleTextField extends StatelessWidget {
 
         // field shape
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 120, 120, 120),
+          borderSide: BorderSide(
+            color: theme.customColors.titleEnabledBorder,
           ),
           borderRadius: BorderRadius.circular(7),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 221, 62, 62),
+          borderSide: BorderSide(
+            color: theme.customColors.titleFocusedBorder,
           ),
           borderRadius: BorderRadius.circular(7),
         ),
         hintText: 'title',
         hintStyle: GoogleFonts.encodeSansExpanded(
-          color: const Color.fromARGB(186, 115, 115, 115),
+          color: theme.customColors.titleHintTextStyle,
           fontSize: 25,
         ),
         contentPadding:

@@ -3,26 +3,23 @@ import 'package:flutter/material.dart';
 class CustomColors {
   //authentication page colors
   final Color memoirVaultTitle; //text
-  final Color loginitoaccount; //text
   final Color loginButton;
-  final Color authTextField;
-  final Color authTextFieldBorder;
   final Color authTextFielFocusedBorder;
   final Color oAuthCard;
   final Color circularProgressIndicator;
+  final Color circularProgressIndicatorBg;
   final Color cursor;
 
   //home page colors
   final Color cardColor;
   final Color cardText;
-  final Color cardDelIcon;
   final Color cardDelIconBg;
-  final Color cardEditIcon;
   final Color cardEditIconBg;
   final Color searchBarFilled;
   final Color searchBarBorder;
-  // final Color searchBarHintText;
   final Color searchBarIcon;
+  final Color searchBarText;
+  final Color noResultFound;
   final Color floatingButtonBg;
   final Color floatingButtonIcon;
 
@@ -56,27 +53,27 @@ class CustomColors {
   //edit page color
   final Color editpageButtonIcon;
 
+  //theme pages
+  final Color themeCard;
+
   //constructor
   CustomColors({
     required this.memoirVaultTitle,
-    required this.loginitoaccount,
     required this.loginButton,
-    required this.authTextField,
-    required this.authTextFieldBorder,
     required this.authTextFielFocusedBorder,
     required this.oAuthCard,
     required this.circularProgressIndicator,
+    required this.circularProgressIndicatorBg,
     required this.cursor,
     required this.cardColor,
     required this.cardText,
-    required this.cardDelIcon,
     required this.cardDelIconBg,
-    required this.cardEditIcon,
     required this.cardEditIconBg,
     required this.searchBarFilled,
     required this.searchBarBorder,
-    // required this.searchBarHintText,
     required this.searchBarIcon,
+    required this.searchBarText,
+    required this.noResultFound,
     required this.floatingButtonBg,
     required this.floatingButtonIcon,
     required this.drawerBg,
@@ -101,5 +98,6 @@ class CustomColors {
     required this.bodyText,
     required this.bodyHintText,
     required this.editpageButtonIcon,
+    required this.themeCard,
   });
 }

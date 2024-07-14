@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:memoir_vault/models/months.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class DateSelector extends StatefulWidget {
+class DateSelector extends ConsumerStatefulWidget {
   const DateSelector({
     super.key,
     required this.onChange,
@@ -15,10 +17,10 @@ class DateSelector extends StatefulWidget {
   final bool isEdit;
 
   @override
-  State<DateSelector> createState() => _DateSelectorState();
+  ConsumerState<DateSelector> createState() => _DateSelectorState();
 }
 
-class _DateSelectorState extends State<DateSelector> {
+class _DateSelectorState extends ConsumerState<DateSelector> {
   late DateTime selectedDate;
 
   @override
@@ -38,7 +40,7 @@ class _DateSelectorState extends State<DateSelector> {
       builder: (BuildContext context) {
         return Container(
           height: 250,
-          color: const Color.fromARGB(210, 222, 173, 169),
+          color: ref.watch(themeProvider).customColors.dateSelectorBg,
           child: Column(
             children: [
               Container(
@@ -77,6 +79,7 @@ class _DateSelectorState extends State<DateSelector> {
 
   @override
   Widget build(context) {
+    final theme = ref.watch(themeProvider);
     return InkWell(
       onTap: widget.isEdit ? _datePicker : () {},
       child: Row(
@@ -87,10 +90,10 @@ class _DateSelectorState extends State<DateSelector> {
           //Date
           Text(
             selectedDate.day.toString(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.w600,
-              color: Colors.black,
+              color: theme.customColors.dateText,
             ),
           ),
 
@@ -98,9 +101,9 @@ class _DateSelectorState extends State<DateSelector> {
           //month
           Text(
             GetMonth().getMonthName(selectedDate.month),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
-              color: Colors.black,
+              color: theme.customColors.dateText,
             ),
           ),
 
@@ -109,9 +112,9 @@ class _DateSelectorState extends State<DateSelector> {
           //year
           Text(
             selectedDate.year.toString(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
-              color: Colors.black,
+              color: theme.customColors.dateText,
             ),
           ),
 

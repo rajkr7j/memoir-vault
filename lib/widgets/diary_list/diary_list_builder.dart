@@ -18,12 +18,13 @@ class DiaryListBuilder extends ConsumerWidget {
     final pages = ref.watch(diaryPagesProvider);
     final theme = ref.watch(themeProvider);
     return pages.isEmpty
-        ? const Row(
+        ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'No result found',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(
+                    fontSize: 25, color: theme.customColors.noResultFound),
               ),
             ],
           )
@@ -42,7 +43,7 @@ class DiaryListBuilder extends ConsumerWidget {
                       label: 'Del',
                       icon: Icons.delete,
                       padding: const EdgeInsets.all(15),
-                      backgroundColor: const Color.fromARGB(129, 244, 67, 54),
+                      backgroundColor: theme.customColors.cardDelIconBg,
                       borderRadius: BorderRadius.circular(15),
                       onPressed: (ctx) {
                         deletePage(pages[index].docId, context);
@@ -53,7 +54,7 @@ class DiaryListBuilder extends ConsumerWidget {
                       label: 'Edit',
                       icon: Icons.edit,
                       padding: const EdgeInsets.all(15),
-                      backgroundColor: const Color.fromARGB(129, 158, 158, 158),
+                      backgroundColor: theme.customColors.cardEditIconBg,
                       borderRadius: BorderRadius.circular(15),
                       onPressed: (ctx) {
                         Navigator.of(context).push(
@@ -94,8 +95,8 @@ class DiaryListBuilder extends ConsumerWidget {
                               //title
                               Text(
                                 pages[index].title,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: theme.customColors.cardText,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
                                 ),
@@ -106,8 +107,8 @@ class DiaryListBuilder extends ConsumerWidget {
                               //day
                               Text(
                                 pages[index].date.day.toString(),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: theme.customColors.cardText,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,
                                 ),
@@ -119,8 +120,8 @@ class DiaryListBuilder extends ConsumerWidget {
                               Text(
                                 GetMonth()
                                     .getMonthNameShort(pages[index].date.month),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: theme.customColors.cardText,
                                   fontSize: 20,
                                 ),
                               )
@@ -135,8 +136,9 @@ class DiaryListBuilder extends ConsumerWidget {
                                 // child: Expanded(
                                 child: Text(
                                   pages[index].body,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(178, 255, 255, 255),
+                                  style: TextStyle(
+                                    color: theme.customColors.cardText
+                                        .withOpacity(0.5),
                                     fontSize: 18,
                                   ),
                                   maxLines: 1,

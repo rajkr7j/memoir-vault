@@ -9,33 +9,37 @@ final themeProvider =
 });
 
 class ThemeNotifier extends StateNotifier<CustomThemeData> {
-  ThemeNotifier() : super(pinkTheme) {
-    _loadTheme();
+  ThemeNotifier() : super(themes[0]) {
+    loadTheme();
   }
 
-  void setTheme(CustomThemeData theme) async {
-    state = theme;
-    await _saveTheme(theme);
+  void setTheme(int themeidx) async {
+    state = themes[themeidx];
+    await _saveTheme(themeidx);
   }
 
-  Future<void> _saveTheme(CustomThemeData theme) async {
-    await DatabaseHelper.instance.saveTheme(theme.toString());
+  Future<void> _saveTheme(int theme) async {
+    await DatabaseHelper.instance.saveTheme(theme);
   }
 
-  Future<void> _loadTheme() async {
-    final themeName = await DatabaseHelper.instance.loadTheme();
-    if (themeName != null) {
-      switch (themeName) {
-        case 'pinkTheme':
-          state = pinkTheme;
+  Future<int> loadTheme() async {
+    final themeidx = await DatabaseHelper.instance.loadTheme();
+    if (themeidx != null) {
+      switch (themeidx) {
+        case 0:
+          state = themes[0];
           break;
-        case 'blueTheme':
-          state = greenTheme;
+        case 1:
+          state = themes[1];
           break;
+
+        case 2:
+          state = themes[2];
         // Add more themes here
         default:
-          state = pinkTheme; // Default theme
+          state = themes[0]; // Default theme
       }
     }
+    return themeidx ?? 0;
   }
 }

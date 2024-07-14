@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class AccCard extends StatelessWidget {
+class AccCard extends ConsumerWidget {
   const AccCard({
     super.key,
     required this.image,
@@ -10,7 +12,7 @@ class AccCard extends StatelessWidget {
   final String image;
   final void Function() onTap;
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -20,7 +22,7 @@ class AccCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Card(
-          color: const Color.fromARGB(45, 228, 67, 67),
+          color: ref.watch(themeProvider).customColors.oAuthCard,
           child: Image.asset(image),
         ),
       ),

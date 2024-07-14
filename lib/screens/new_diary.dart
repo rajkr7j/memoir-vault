@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoir_vault/controller/add_page.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 import 'package:memoir_vault/widgets/date_selector.dart';
 import 'package:memoir_vault/widgets/textfields/body_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/title_textfield.dart';
 
-class NewDiary extends StatefulWidget {
+class NewDiary extends ConsumerStatefulWidget {
   const NewDiary({super.key});
 
   @override
-  State<NewDiary> createState() => _NewDiaryState();
+  ConsumerState<NewDiary> createState() => _NewDiaryState();
 }
 
-class _NewDiaryState extends State<NewDiary> {
+class _NewDiaryState extends ConsumerState<NewDiary> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
@@ -26,10 +28,11 @@ class _NewDiaryState extends State<NewDiary> {
 
   @override
   Widget build(context) {
+    final theme = ref.watch(themeProvider);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 222, 173, 169),
+      backgroundColor: theme.customColors.newDiaryScaffold,
 
       // resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -47,17 +50,17 @@ class _NewDiaryState extends State<NewDiary> {
                   date: _selectedDate,
                   body: _bodyController.text.trim());
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.save_outlined,
-              color: Colors.black,
+              color: theme.customColors.saveButtonIcon,
             ),
-            label: const Text(
+            label: Text(
               'SAVE',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: theme.customColors.saveButtonText),
             ),
             style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(
-                const Color.fromARGB(255, 255, 125, 116),
+                theme.customColors.saveButtonFill,
               ),
               foregroundColor: MaterialStateProperty.all(Colors.black),
               iconSize: MaterialStateProperty.all(30),
@@ -71,7 +74,7 @@ class _NewDiaryState extends State<NewDiary> {
           Container(
             padding: const EdgeInsets.only(top: 0),
             child: Image.asset(
-              'assets/home/home.jpg',
+              theme.bgImage,
               // 'assets/home/home1.jpg',
 
               fit: BoxFit.cover,

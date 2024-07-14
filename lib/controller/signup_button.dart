@@ -1,15 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoir_vault/controller/add_user_details.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 final _firebase = FirebaseAuth.instance;
-Future<void> signIn(
-    {required String email,
-    required String password,
-    required String confirmPassword,
-    required String username,
-    required BuildContext context}) async {
+Future<void> signIn({
+  required String email,
+  required String password,
+  required String confirmPassword,
+  required String username,
+  required BuildContext context,
+  required WidgetRef ref,
+}) async {
   if (email.trim().isEmpty ||
       password.trim().isEmpty ||
       username.trim().isEmpty) {
@@ -27,10 +31,12 @@ Future<void> signIn(
     barrierDismissible: false,
     context: context,
     builder: (context) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          color: Color.fromARGB(255, 221, 62, 62),
-          backgroundColor: Color.fromARGB(255, 248, 171, 171),
+          color:
+              ref.watch(themeProvider).customColors.circularProgressIndicator,
+          backgroundColor:
+              ref.watch(themeProvider).customColors.circularProgressIndicatorBg,
         ),
       );
     },

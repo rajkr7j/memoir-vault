@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:memoir_vault/controller/edit_page_button.dart';
 import 'package:memoir_vault/models/diary_page.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 import 'package:memoir_vault/widgets/date_selector.dart';
 import 'package:memoir_vault/widgets/textfields/body_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/title_textfield.dart';
 
-class EditPage extends StatefulWidget {
+class EditPage extends ConsumerStatefulWidget {
   const EditPage({
     super.key,
     required this.page,
@@ -16,15 +18,22 @@ class EditPage extends StatefulWidget {
   final bool isEdit;
 
   @override
-  State<EditPage> createState() => _EditPageState();
+  ConsumerState<EditPage> createState() => _EditPageState();
 }
 
-class _EditPageState extends State<EditPage> {
+class _EditPageState extends ConsumerState<EditPage> {
   bool isEdit = false;
   @override
   void initState() {
     super.initState();
     isEdit = widget.isEdit;
+  }
+
+  //toggle isEdit
+  void toggleIsEdit() {
+    setState(() {
+      isEdit = !isEdit;
+    });
   }
 
   @override
@@ -34,18 +43,12 @@ class _EditPageState extends State<EditPage> {
     final TextEditingController bodyController =
         TextEditingController(text: widget.page.body);
     DateTime selectedDate = DateTime.now();
-
-    //toggle isEdit
-    void toggleIsEdit() {
-      setState(() {
-        isEdit = !isEdit;
-      });
-    }
+    final theme = ref.watch(themeProvider);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 222, 173, 169),
+      backgroundColor: theme.customColors.newDiaryScaffold,
 
       // resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -65,11 +68,17 @@ class _EditPageState extends State<EditPage> {
                 );
                 toggleIsEdit();
               },
-              icon: const Icon(Icons.save_outlined),
-              label: const Text('SAVE CHANGES'),
+              icon: Icon(
+                Icons.save_outlined,
+                color: theme.customColors.saveButtonIcon,
+              ),
+              label: Text('SAVE CHANGES',
+                  style:
+                      TextStyle(color: theme.customColors.editpageButtonIcon)),
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.all(
-                    const Color.fromARGB(255, 255, 125, 116)),
+                  theme.customColors.saveButtonFill,
+                ),
                 foregroundColor: MaterialStateProperty.all(Colors.black),
                 iconSize: MaterialStateProperty.all(30),
               ),
@@ -79,11 +88,17 @@ class _EditPageState extends State<EditPage> {
           if (!isEdit)
             TextButton.icon(
               onPressed: toggleIsEdit,
-              icon: const Icon(Icons.edit, color: Colors.black),
-              label: const Text('EDIT'),
+              icon: Icon(
+                Icons.edit,
+                color: theme.customColors.editpageButtonIcon,
+              ),
+              label: Text('EDIT',
+                  style:
+                      TextStyle(color: theme.customColors.editpageButtonIcon)),
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.all(
-                    const Color.fromARGB(255, 255, 125, 116)),
+                  theme.customColors.saveButtonFill,
+                ),
                 foregroundColor: MaterialStateProperty.all(Colors.black),
                 iconSize: MaterialStateProperty.all(30),
               ),
@@ -96,7 +111,7 @@ class _EditPageState extends State<EditPage> {
           Container(
             padding: const EdgeInsets.only(top: 0),
             child: Image.asset(
-              'assets/home/home.jpg',
+              theme.bgImage,
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,

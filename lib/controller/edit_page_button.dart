@@ -22,8 +22,8 @@ Future<void> editPage(
       'body': body,
     });
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Changes Saved Successfully Successfully')));
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Changes Saved Successfully')));
   } catch (error) {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context)

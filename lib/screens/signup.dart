@@ -2,14 +2,16 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 import 'package:memoir_vault/widgets/oAuth_card.dart';
 import 'package:memoir_vault/controller/signup_button.dart';
 import 'package:memoir_vault/widgets/textfields/email_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/password_textfield.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({
     super.key,
     required this.toggleAuth,
@@ -18,12 +20,12 @@ class SignUpPage extends StatefulWidget {
   final void Function() toggleAuth;
 
   @override
-  State<SignUpPage> createState() {
+  ConsumerState<SignUpPage> createState() {
     return _SignUpPageState();
   }
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   //textfield controller
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -43,6 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final theme = ref.watch(themeProvider);
 
     return SingleChildScrollView(
       child: Center(
@@ -121,12 +124,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: GestureDetector(
                             onTap: () {
                               signIn(
-                                  email: _emailController.text.trim(),
-                                  password: _passwordController.text.trim(),
-                                  confirmPassword:
-                                      _confirmPasswordController.text.trim(),
-                                  username: _usernameController.text.trim(),
-                                  context: context);
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                confirmPassword:
+                                    _confirmPasswordController.text.trim(),
+                                username: _usernameController.text.trim(),
+                                context: context,
+                                ref: ref,
+                              );
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -134,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromARGB(255, 221, 62, 62),
+                                color: theme.customColors.loginButton,
                               ),
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -223,9 +228,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ' Login',
                                       textAlign: TextAlign.end,
                                       style: GoogleFonts.encodeSansExpanded(
-                                        color: const Color.fromARGB(
-                                            255, 221, 62, 62),
-                                        fontSize: 15,
+                                        color:
+                                            theme.customColors.memoirVaultTitle,
                                       ),
                                     ),
                                   ),

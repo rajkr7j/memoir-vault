@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class ForgetPasswordPage extends StatefulWidget {
+class ForgetPasswordPage extends ConsumerStatefulWidget {
   const ForgetPasswordPage({super.key});
   @override
-  State<ForgetPasswordPage> createState() {
+  ConsumerState<ForgetPasswordPage> createState() {
     return _ForgetPasswordPageState();
   }
 }
 
-class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
+class _ForgetPasswordPageState extends ConsumerState<ForgetPasswordPage> {
   var _emailController = TextEditingController();
 
   @override
@@ -55,11 +57,12 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ref.watch(themeProvider);
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: theme.customColors.drawerBg,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 0, 66, 120),
+        backgroundColor: theme.customColors.memoirVaultTitle,
         elevation: 0,
       ),
       body: Column(
@@ -83,7 +86,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             child: TextField(
               keyboardType: TextInputType.emailAddress,
               controller: _emailController,
-              cursorColor: const Color.fromARGB(255, 0, 66, 120),
+              cursorColor: theme.customColors.cursor,
               style: const TextStyle(
                 color: Color.fromARGB(255, 0, 0, 0),
               ),
@@ -97,8 +100,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 0, 66, 120),
+                  borderSide: BorderSide(
+                    color: theme.customColors.titleFocusedBorder,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -114,7 +117,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
           MaterialButton(
             onPressed: passwordReset,
-            color: const Color.fromARGB(255, 0, 66, 120),
+            color: theme.customColors.loginButton,
             child: Text(
               'Reset Password',
               style: GoogleFonts.encodeSansExpanded(

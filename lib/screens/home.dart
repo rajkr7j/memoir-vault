@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:memoir_vault/provider/pages_provider.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
+import 'package:memoir_vault/widgets/drawer/my_drawer.dart';
 import 'package:memoir_vault/widgets/floating_buttons.dart';
 import 'package:memoir_vault/widgets/diary_list/diary_list.dart';
-import 'package:memoir_vault/widgets/my_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(context, ref) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final theme = ref.watch(themeProvider);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -28,10 +30,10 @@ class HomeScreen extends ConsumerWidget {
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.menu,
                 //drawer button color
-                color: Colors.white,
+                color: theme.customColors.drawerButton,
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -48,7 +50,7 @@ class HomeScreen extends ConsumerWidget {
         children: [
           //background image
           Image.asset(
-            'assets/home/home.jpg',
+            theme.bgImage,
             // 'assets/home/home1.jpg',
             // 'assets/home/home2.jpg',
             fit: BoxFit.cover,
@@ -58,7 +60,7 @@ class HomeScreen extends ConsumerWidget {
 
           //top image
           Image.asset(
-            'assets/drawer/dw2.jpg',
+            theme.bannerImage,
             fit: BoxFit.cover,
             height: height / 3.11,
             width: double.infinity,
@@ -86,27 +88,30 @@ class HomeScreen extends ConsumerWidget {
               onChanged: (value) {
                 ref.read(diaryPagesProvider.notifier).runFilter(value);
               },
-              cursorColor: Colors.red,
+              style: TextStyle(
+                color: theme.customColors.searchBarText,
+              ),
+              cursorColor: theme.customColors.cursor,
               cursorErrorColor: Colors.red,
               decoration: InputDecoration(
                 hintText: 'Search Title',
 
                 // labelText: 'Search Title',
-                suffixIcon: const Icon(
+                suffixIcon: Icon(
                   Icons.search,
-                  color: Color.fromARGB(255, 73, 73, 73),
+                  color: theme.customColors.searchBarIcon,
                 ),
                 filled: true,
-                fillColor: const Color.fromARGB(132, 255, 201, 201),
+                fillColor: theme.customColors.searchBarFilled,
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 255, 3, 3),
+                  borderSide: BorderSide(
+                    color: theme.customColors.searchBarBorder,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 255, 0, 0),
+                  borderSide: BorderSide(
+                    color: theme.customColors.searchBarBorder,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),

@@ -26,24 +26,24 @@ class DatabaseHelper {
     await db.execute('''
     CREATE TABLE theme (
       id INTEGER PRIMARY KEY,
-      themeName TEXT NOT NULL
+      themeName INTEGER NOT NULL
     )
     ''');
   }
 
-  Future<int> saveTheme(String themeName) async {
+  Future<int> saveTheme(int themeName) async {
     final db = await instance.database;
 
     await db.delete('theme'); // Clear existing data
     return await db.insert('theme', {'themeName': themeName});
   }
 
-  Future<String?> loadTheme() async {
+  Future<int?> loadTheme() async {
     final db = await instance.database;
     final maps = await db.query('theme');
 
     if (maps.isNotEmpty) {
-      return maps.first['themeName'] as String?;
+      return maps.first['themeName'] as int?;
     } else {
       return null;
     }

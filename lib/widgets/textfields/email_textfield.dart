@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class TextFieldWidget extends StatefulWidget {
+class TextFieldWidget extends ConsumerStatefulWidget {
   const TextFieldWidget({
     super.key,
     required this.title,
@@ -11,18 +13,20 @@ class TextFieldWidget extends StatefulWidget {
   final String title;
   final TextEditingController controller;
   @override
-  State<TextFieldWidget> createState() {
+  ConsumerState<TextFieldWidget> createState() {
     return _TextFieldWidgetState();
   }
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
+class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = ref.watch(themeProvider);
+
     return TextField(
       keyboardType: TextInputType.emailAddress,
       controller: widget.controller,
-      cursorColor: const Color.fromARGB(255, 221, 62, 62),
+      cursorColor: theme.customColors.cursor,
       style: const TextStyle(
         color: Colors.white,
       ),
@@ -31,13 +35,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         fillColor: const Color.fromARGB(0, 255, 255, 255),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Colors.white,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 221, 62, 62),
+          borderSide: BorderSide(
+            color: theme.customColors.authTextFielFocusedBorder,
           ),
           borderRadius: BorderRadius.circular(15),
         ),

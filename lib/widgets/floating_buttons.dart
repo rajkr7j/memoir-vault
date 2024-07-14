@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:memoir_vault/screens/new_diary.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
-class FloatingButton extends StatelessWidget {
+class FloatingButton extends ConsumerWidget {
   const FloatingButton({super.key});
 
   @override
-  Widget build(context) {
+  Widget build(context, ref) {
     double height = MediaQuery.of(context).size.height;
-
+    final theme = ref.watch(themeProvider);
     return Column(
       children: [
         if (height > 130) SizedBox(height: height - 130),
@@ -27,9 +29,9 @@ class FloatingButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.calendar_month_outlined,
-                  color: Colors.white,
+                  color: theme.customColors.floatingButtonIcon,
                 ),
               ),
             ),
@@ -47,13 +49,13 @@ class FloatingButton extends StatelessWidget {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (ctx) => const NewDiary()));
                 },
-                backgroundColor: const Color.fromARGB(255, 171, 117, 113),
+                backgroundColor: theme.customColors.floatingButtonBg,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: theme.customColors.floatingButtonIcon,
                   size: 50,
                 ),
               ),
@@ -73,9 +75,9 @@ class FloatingButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.refresh,
-                  color: Colors.white,
+                  color: theme.customColors.floatingButtonIcon,
                 ),
               ),
             ),

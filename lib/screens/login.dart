@@ -1,14 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memoir_vault/controller/login_button.dart';
+import 'package:memoir_vault/theme/theme_provider.dart';
 
 import 'package:memoir_vault/widgets/textfields/email_textfield.dart';
 import 'package:memoir_vault/widgets/textfields/password_textfield.dart';
 import 'package:memoir_vault/widgets/oAuth_card.dart';
 import 'package:memoir_vault/screens/forget_password.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({
     super.key,
     required this.toggleAuth,
@@ -17,12 +19,12 @@ class LoginPage extends StatefulWidget {
   final void Function() toggleAuth;
 
   @override
-  State<LoginPage> createState() {
+  ConsumerState<LoginPage> createState() {
     return _LoginPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -42,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final theme = ref.watch(themeProvider);
 
     return SingleChildScrollView(
       child: Center(
@@ -78,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                               'MEMOIR VAULT',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.reggaeOne(
-                                color: const Color.fromARGB(255, 221, 62, 62),
+                                color: theme.customColors.memoirVaultTitle,
                                 fontSize: 35,
                               ),
                             ),
@@ -94,10 +97,10 @@ class _LoginPageState extends State<LoginPage> {
                               'Login to your Account',
                               textAlign: TextAlign.end,
                               style: GoogleFonts.encodeSansExpanded(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w500),
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -126,9 +129,11 @@ class _LoginPageState extends State<LoginPage> {
                           child: GestureDetector(
                             onTap: () {
                               logIn(
-                                  email: _emailController.text.trim(),
-                                  password: _passwordController.text.trim(),
-                                  context: context);
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                context: context,
+                                ref: ref,
+                              );
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -136,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromARGB(255, 221, 62, 62),
+                                color: theme.customColors.loginButton,
                               ),
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -175,8 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                   'Forgot Password?',
                                   textAlign: TextAlign.end,
                                   style: GoogleFonts.encodeSansExpanded(
-                                    color:
-                                        const Color.fromARGB(255, 221, 62, 62),
+                                    color: theme.customColors.memoirVaultTitle,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -195,8 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                               'Or log in with?',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.encodeSansExpanded(
-                                color: const Color.fromARGB(255, 255, 255,
-                                    255), //same as logintoyouaccount
+                                color: Colors.white, //same as logintoyouaccount
                                 fontSize: 15,
                               ),
                             ),
@@ -260,8 +263,8 @@ class _LoginPageState extends State<LoginPage> {
                                       ' Signup',
                                       textAlign: TextAlign.end,
                                       style: GoogleFonts.encodeSansExpanded(
-                                        color: const Color.fromARGB(
-                                            255, 221, 62, 62),
+                                        color:
+                                            theme.customColors.memoirVaultTitle,
                                         fontSize: 15,
                                       ),
                                     ),
